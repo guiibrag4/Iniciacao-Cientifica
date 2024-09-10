@@ -10,7 +10,7 @@ public class Main{
 		utilizar os métodos, gets e setters contidos na classe "Labirinto". o 3 é um parâmetro sendo passado 
 		para um construtor
 		 */
-		Labirinto labirinto = new Labirinto(2);	
+		Labirinto labirinto = new Labirinto(4);	
 		
 		
 		// método de exibição do labirinto.

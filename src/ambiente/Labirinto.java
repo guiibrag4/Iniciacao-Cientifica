@@ -11,6 +11,7 @@ public class Labirinto {
     private String[][] labirinto;	
     private AgenteLabirinto agente;
     private Random random;  // Adiciona um objeto Random
+    private PosicaoXY ultimaPosicaoLimpa;  // Adiciona uma variável para rastrear a última posição limpa
 
     public Labirinto(int tamanhoLabirinto) {
         this.tamanhoLabirinto = tamanhoLabirinto;
@@ -19,15 +20,20 @@ public class Labirinto {
     }
     
     public void sujarLabirinto() {
-        int x = random.nextInt(this.tamanhoLabirinto);
-        int y = random.nextInt(this.tamanhoLabirinto);
-
+        int x, y;
         PosicaoXY posAgente = this.agente.getPosicao();
-
-        if (x != posAgente.getPosX() || y != posAgente.getPosY()) {
-            labirinto[x][y] = "S"; 
-        }
+        
+        // Continua gerando novas coordenadas até encontrar uma posição diferente da do agente
+        do {
+            x = random.nextInt(this.tamanhoLabirinto);
+            y = random.nextInt(this.tamanhoLabirinto);
+        } while (x == posAgente.getPosX() && y == posAgente.getPosY() || 
+                (ultimaPosicaoLimpa != null && x == ultimaPosicaoLimpa.getPosX() && y == ultimaPosicaoLimpa.getPosY()));
+        
+        // Suja a posição escolhida
+        labirinto[x][y] = "S"; 
     }
+
 
     private void construirNovoLabirinto() {
         labirinto = new String[this.tamanhoLabirinto][this.tamanhoLabirinto];
@@ -76,5 +82,6 @@ public class Labirinto {
     public void limpar() {
         PosicaoXY posicao = this.agente.getPosicao();
         labirinto[posicao.getPosX()][posicao.getPosY()] = "L";  // "L" indica que a célula foi limpa.
+        ultimaPosicaoLimpa = posicao;  // Atualiza a última posição limpa (para ter certeza que ela vai atualizar)
     }
 }
