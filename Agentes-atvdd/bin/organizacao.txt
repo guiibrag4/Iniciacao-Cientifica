@@ -1,0 +1,4 @@
+Coisinhas que faltam
+
+1- O Agente não deve sujar uma posição que já está suja;
+2- O Agente precisa aguardar quando todas as posições ao seu redor estão limpas, até que fiquem sujas.
